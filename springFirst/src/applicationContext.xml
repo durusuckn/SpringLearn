@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    
+   <context:property-placeholder location="/springFirst/values.properties"/>
+    
+    <!-- Burada sabitlerimi girdiğim values.properties dosyasını buraya dahil ettim ve burada locationu kopyalayıp src kısmından
+    sonrasını yapıştırdım 5 6 kere değiştirsek bile özellikler dosyasından direk olarak değiştirmemizi sağlar-->
+    
+    <bean id="database" class="springFirst.MySqlCustomerDal">
+    
+     <property name="connectionString" value="${database.connectionString}">
+     
+     </property>
+     
+     <!-- Ulaşırken bir connectionString görüceksin ve onun valuesu değeri mssql string olacak
+     Burada sabit verdiğimiz yerdeki yeri değiştirerek birçok yerde değişiklik yapmamıza gerek olmadan sabitleri tanımladığımız yerden 
+     değişiklik yaparız
+      -->
+    
+     </bean>
+     
+    <bean id="service" class="springFirst.CustomerManager">
+     <constructor-arg ref="database"/>
+     <!-- Burada bir parametre olduğundan parametrenin ne olduğunu da girmemiz gerekir bu yapıyı kullanarak managerın mysql databasenı 
+     kullandığını varsayarak bir customer manager oluşturulur bunun sebebi ise belki de birden fazla arayüz kullanımında yapılması 
+     gereken işlemler için arayüz belirlemek olarak düşünebiliriz  -->
+     
+    
+     
+     
+     
+     
+     
+<!--      <property name="customerDal" ref="database">
+		 </property>
+ -->
+     
+     <!-- Buradaki customerDal bir isimlendirme sayılır mysql veya mssql ile de olsa değiştirilmez burada contructor yapmak yerine
+     setter injection kullanıldı  -->
+   
+     
+     <!-- Propertyden biri customerDal(setCustomerDal ise ona msSql ver demek -->
+     </bean>
+
+
+</beans>
+
+
+
+
+
